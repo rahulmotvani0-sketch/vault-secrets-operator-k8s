@@ -1,0 +1,28 @@
+name: CI & Zero-Secrets Validation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret Scan with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lint Kubernetes Manifests
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: k8s/
+          config: .kube-linter.yaml
+        continue-on-error: true

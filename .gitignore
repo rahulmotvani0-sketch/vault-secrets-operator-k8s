@@ -1,0 +1,15 @@
+# Secrets and tokens
+*.token
+*.key
+*.pem
+.vault-token
+
+# OS and Editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local test outputs
+*.log
+.terraform/
+*.tfstate*

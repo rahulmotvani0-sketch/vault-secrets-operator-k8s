@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secured-api
+  namespace: default
+  labels:
+    app: secured-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: secured-api
+  template:
+    metadata:
+      labels:
+        app: secured-api
+    spec:
+      containers:
+      - name: api
+        image: python:3.11-alpine
+        command:
+        - "/bin/sh"
+        - "-c"
+        - |
+          echo "Starting secured service..."
+          echo "Authenticated to Postgres with user: $DB_USER"
+          while true; do
+            echo "[$(date -u +'%Y-%m-%dT%H:%M:%SZ')] Dynamic Credential Active -> DB_USER=$DB_USER"
+            sleep 60
+          done
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi

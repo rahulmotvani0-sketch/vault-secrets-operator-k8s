@@ -1,0 +1,9 @@
+server:
+  dev:
+    enabled: true
+    devRootToken: "root-master-token"
+  dataStorage:
+    enabled: false
+ui:
+  enabled: true
+  serviceType: ClusterIP
