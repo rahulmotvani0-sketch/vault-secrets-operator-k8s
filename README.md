@@ -146,7 +146,7 @@ vault-secrets-operator-k8s/
 │       └── vault-values.yaml         # Helm configuration values
 ├── docs/
 │   ├── ARCHITECTURE.md               # In-depth architectural trade-off analysis
-│   └── INTERVIEW_TALKING_POINTS.md   # SRE / Senior DevOps interview talking points
+│   └── INTERVIEW_TALKING_POINTS.md   # SRE / DevOps interview talking points
 └── scripts/
     ├── setup-vault.sh                # End-to-end automation bootstrap script
     └── verify-zero-secrets.sh        # Verification and GitLeaks audit script

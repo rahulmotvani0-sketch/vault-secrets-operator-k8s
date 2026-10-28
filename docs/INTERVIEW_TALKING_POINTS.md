@@ -1,4 +1,4 @@
-# SRE & Senior DevOps Interview Deep-Dive: Lab 7
+# SRE & DevOps Interview Deep-Dive: Lab 7
 
 ### Question 1: How do you achieve "Zero Secrets in Git" in a strict GitOps CI/CD workflow?
 **Answer:**
