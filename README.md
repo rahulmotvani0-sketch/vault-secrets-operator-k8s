@@ -34,27 +34,27 @@ In conventional GitOps workflows (even with Sealed Secrets or SOPS), organizatio
 ```mermaid
 graph TD
     subgraph GitOps_Repo ["Git Repository (Zero Secrets)"]
-        SS[SecretStore.yaml]
-        ES[ExternalSecret.yaml]
-        App[Deployment.yaml]
+        SS["SecretStore.yaml"]
+        ES["ExternalSecret.yaml"]
+        App["Deployment.yaml"]
     end
 
     subgraph K8s_Cluster ["Kubernetes Production Cluster"]
-        SA[ESO ServiceAccount]
-        ESO[External Secrets Operator]
-        K8sSec[Native Kubernetes Secret<br/>(Auto-Rotated)]
-        Pod[Application Pod]
+        SA["ESO ServiceAccount"]
+        ESO["External Secrets Operator"]
+        K8sSec["Native Kubernetes Secret (Auto-Rotated)"]
+        Pod["Application Pod"]
 
-        SA -->|K8s JWT Token| ESO
-        ESO -->|Generates / Updates| K8sSec
-        K8sSec -->|Injected as Env Vars| Pod
+        SA -->|"K8s JWT Token"| ESO
+        ESO -->|"Generates / Updates"| K8sSec
+        K8sSec -->|"Injected as Env Vars"| Pod
     end
 
     subgraph Security_Control_Plane ["Vault Infrastructure"]
-        Vault[HashiCorp Vault]
-        K8sAuth[Kubernetes Auth Method]
-        DBEngine[Dynamic DB Engine]
-        Policy[Least-Privilege Policy]
+        Vault["HashiCorp Vault"]
+        K8sAuth["Kubernetes Auth Method"]
+        DBEngine["Dynamic DB Engine"]
+        Policy["Least-Privilege Policy"]
 
         Vault --- K8sAuth
         Vault --- DBEngine
@@ -62,15 +62,17 @@ graph TD
     end
 
     subgraph Data_Tier ["Database Infrastructure"]
-        Postgres[(PostgreSQL Instance)]
+        Postgres[("PostgreSQL Instance")]
     end
 
-    SS & ES & App -->|Applied via kubectl/ArgoCD| K8s_Cluster
-    ESO -->|1. Authenticate with ServiceAccount| K8sAuth
-    K8sAuth -->|2. Verify Token & Grant Policy| ESO
-    ESO -->|3. Request Dynamic Creds| DBEngine
-    DBEngine -->|4. CREATE ROLE with TTL| Postgres
-    DBEngine -->|5. Return Generated Creds| ESO
+    SS -->|"Applied via GitOps"| ESO
+    ES -->|"Applied via GitOps"| ESO
+    App -->|"Applied via GitOps"| Pod
+    ESO -->|"1. Authenticate with ServiceAccount"| K8sAuth
+    K8sAuth -->|"2. Verify Token & Grant Policy"| ESO
+    ESO -->|"3. Request Dynamic Creds"| DBEngine
+    DBEngine -->|"4. CREATE ROLE with TTL"| Postgres
+    DBEngine -->|"5. Return Generated Creds"| ESO
 ```
 
 ---
