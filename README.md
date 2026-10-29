@@ -1,5 +1,9 @@
 # Zero-Secrets GitOps: Dynamic Secrets Management with HashiCorp Vault & External Secrets Operator
 
+<p align="center">
+  <img src="docs/assets/architecture-banner.jpg" alt="Zero-Secrets GitOps Architecture: HashiCorp Vault, External Secrets Operator & Kubernetes" width="100%" />
+</p>
+
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.28%2B-blue?logo=kubernetes)](https://kubernetes.io/)
 [![HashiCorp Vault](https://img.shields.io/badge/HashiCorp_Vault-v1.16-black?logo=vault)](https://www.vaultproject.io/)
 [![External Secrets Operator](https://img.shields.io/badge/External_Secrets_Operator-v0.9%2B-blueviolet)](https://external-secrets.io/)
